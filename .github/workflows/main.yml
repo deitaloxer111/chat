@@ -1,0 +1,25 @@
+name: socket.io-2.5.1.zip
+
+on: 
+  push:
+    branches:
+      - main  # Change this to the branch you want to trigger the action
+
+jobs:
+  unzip:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Unzip file
+        run: unzip archive.zip -d output-directory  # Change 'archive.zip' and 'output-directory' as needed
+
+      - name: Commit unzipped files
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add output-directory  # Change 'output-directory' as needed
+          git commit -m 'Unzip archive.zip'
+          git push
